@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💧 TANDEOS VICTORIA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header con efecto de onda de agua -->
+        <div class="header">
+            <div class="water-wave"></div>
+            <h1>💧 TANDEOS VICTORIA</h1>
+            <p class="subtitle">Información actualizada de COMAPA</p>
+        </div>
+
+        <!-- Búsqueda mejorada -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar tu colonia..." class="search-input">
+                <div class="search-icon"></div>
+            </div>
+        </div>
+
+        <!-- Separador con diseño mejorado -->
+        <div class="separator">
+            <div class="separator-line"></div>
+            <span>O</span>
+            <div class="separator-line"></div>
+        </div>
+
+        <!-- Ubicación con animación -->
+        <button class="location-button pulse-animation" onclick="getLocation()">
+            <span class="button-icon">📍</span>
+            <span class="button-text">Usar mi ubicación actual</span>
+        </button>
+
+        <!-- Filtros por sector -->
+        <div class="sector-filters">
+            <button class="sector-filter active" data-sector="all">Todos</button>
+            <button class="sector-filter" data-sector="I">Sector I</button>
+            <button class="sector-filter" data-sector="II">Sector II</button>
+            <button class="sector-filter" data-sector="III">Sector III</button>
+            <button class="sector-filter" data-sector="IV">Sector IV</button>
+            <button class="sector-filter" data-sector="V">Sector V</button>
+            <button class="sector-filter" data-sector="VI">Sector VI</button>
+        </div>
+
+        <!-- Contador de resultados -->
+        <div class="results-counter">
+            <span id="resultsCount">60</span> colonias encontradas
+        </div>
+
+        <!-- Lista de colonias con diseño mejorado -->
+        <div id="coloniasList" class="colonias-list">
+            <!-- Las colonias aparecerán aquí -->
+        </div>
+
+        <!-- Botones inferiores con mejor diseño -->
+        <div class="bottom-buttons">
+            <button class="bottom-button map-button" onclick="showMap()">
+                <span class="button-icon">🗺️</span>
+                <span class="button-text">Mapa</span>
+            </button>
+            <button class="bottom-button report-button" onclick="showReport()">
+                <span class="button-icon">⚠️</span>
+                <span class="button-text">Reportar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Indicador de carga -->
+    <div id="loadingIndicator" class="loading-indicator">
+        <div class="spinner"></div>
+        <p>Cargando información...</p>
+    </div>
+
+    <!-- Modal para Reportes y Detalles -->
+    <div id="coloniaModal" class="modal-detalle" style="display: none;">
+        <div class="modal-contenido">
+            <button class="cerrar-modal" onclick="cerrarModal()">&times;</button>
+            <div id="modalContent">
+                <!-- Aquí va el contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Mapa -->
+    <div id="mapModal" class="modal-detalle" style="display: none;">
+        <div class="modal-contenido" style="max-width: 95%; height: 85vh;">
+            <button class="cerrar-modal" onclick="cerrarMapa()">&times;</button>
+            <h3 style="text-align: center; margin-bottom: 15px; color: var(--primary-color);">🗺️ Mapa de Colonias</h3>
+            <div id="map" style="width: 100%; height: 90%; border-radius: 12px;"></div>
+        </div>
+    </div>
+
+    <script src="App 1.js"></script>
+</body>
+</html>
