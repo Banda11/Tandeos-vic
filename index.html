@@ -8,15 +8,224 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos adicionales para el menú hamburguesa */
+        .hamburger-menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .hamburger-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 999;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-header h2 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .close-btn:hover {
+            color: var(--dark-color);
+        }
+
+        .sidebar-search-container {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .sidebar-search-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .sidebar-sector-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-sector-filter {
+            padding: 6px 10px;
+            background: #f1f1f1;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-sector-filter.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-colonias-list {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        .sidebar-colonia-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .sidebar-colonia-item:hover {
+            background: #f9f9f9;
+        }
+
+        .sidebar-colonia-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-colonia-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-sector-badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .sidebar-colonia-horario {
+            color: #666;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-horario-icon {
+            margin-right: 6px;
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Menú Hamburguesa -->
+    <div class="hamburger-menu">
+        <button class="hamburger-btn">☰</button>
+    </div>
+
+    <!-- Sidebar con lista de colonias -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>💧 Lista de Colonias</h2>
+            <button class="close-btn">&times;</button>
+        </div>
+        
+        <div class="sidebar-search-container">
+            <input type="text" class="sidebar-search-input" placeholder="🔍 Buscar colonia...">
+        </div>
+        
+        <div class="sidebar-sector-filters">
+            <button class="sidebar-sector-filter active" data-sector="all">Todas</button>
+            <button class="sidebar-sector-filter" data-sector="I">Sector I</button>
+            <button class="sidebar-sector-filter" data-sector="II">Sector II</button>
+            <button class="sidebar-sector-filter" data-sector="III">Sector III</button>
+            <button class="sidebar-sector-filter" data-sector="IV">Sector IV</button>
+            <button class="sidebar-sector-filter" data-sector="V">Sector V</button>
+            <button class="sidebar-sector-filter" data-sector="VI">Sector VI</button>
+        </div>
+        
+        <div class="sidebar-colonias-list">
+            <!-- Las 60 colonias se insertarán aquí con JavaScript -->
+        </div>
+    </div>
+
     <div class="container">
         <!-- Header con efecto de onda de agua -->
         <div class="header">
-            <div class="water-wave"></div>
-            <h1>💧 TANDEOS VICTORIA</h1>
+    <div class="water-wave"></div>
+    <div class="header-content">
+        <div class="logo-container">
+            <!-- TEMPORAL: Placeholder elegante -->
+            <div class="logo-placeholder">
+                💧
+            </div>
+        </div>
+        <div class="header-text">
+            <h1>TANDEOS VICTORIA</h1>
             <p class="subtitle">Información actualizada de COMAPA</p>
         </div>
+    </div>
+</div>
 
         <!-- Búsqueda mejorada -->
         <div class="search-container">
@@ -33,44 +242,23 @@
             <div class="separator-line"></div>
         </div>
 
-        <!-- Ubicación con animación -->
-        <button class="location-button pulse-animation" onclick="getLocation()">
-            <span class="button-icon">📍</span>
-            <span class="button-text">Usar mi ubicación actual</span>
-        </button>
+        
 
-        <!-- Filtros por sector -->
-        <div class="sector-filters">
-            <button class="sector-filter active" data-sector="all">Todos</button>
-            <button class="sector-filter" data-sector="I">Sector I</button>
-            <button class="sector-filter" data-sector="II">Sector II</button>
-            <button class="sector-filter" data-sector="III">Sector III</button>
-            <button class="sector-filter" data-sector="IV">Sector IV</button>
-            <button class="sector-filter" data-sector="V">Sector V</button>
-            <button class="sector-filter" data-sector="VI">Sector VI</button>
+<!-- Botones inferiores con mejor diseño -->
+<div class="bottom-buttons">
+    <button class="bottom-button map-button" onclick="showMap()">
+        <span class="button-icon">🗺️</span>
+        <span class="button-text">Mapa</span>
+    </button>
+    <button class="bottom-button report-button" onclick="showReport()">
+        <span class="button-icon">⚠️</span>
+        <span class="button-text">Reportar</span>
+    </button>
+</div>
+
         </div>
 
-        <!-- Contador de resultados -->
-        <div class="results-counter">
-            <span id="resultsCount">60</span> colonias encontradas
-        </div>
-
-        <!-- Lista de colonias con diseño mejorado -->
-        <div id="coloniasList" class="colonias-list">
-            <!-- Las colonias aparecerán aquí -->
-        </div>
-
-        <!-- Botones inferiores con mejor diseño -->
-        <div class="bottom-buttons">
-            <button class="bottom-button map-button" onclick="showMap()">
-                <span class="button-icon">🗺️</span>
-                <span class="button-text">Mapa</span>
-            </button>
-            <button class="bottom-button report-button" onclick="showReport()">
-                <span class="button-icon">⚠️</span>
-                <span class="button-text">Reportar</span>
-            </button>
-        </div>
+      
     </div>
 
     <!-- Indicador de carga -->
@@ -98,6 +286,174 @@
         </div>
     </div>
 
+    <script>
+        // Datos de las 60 colonias para el menú hamburguesa
+        const colonias = [
+            { id: 1, nombre: "Centro", sector: "I", horario: "Lunes y Jueves: 6:00 AM - 10:00 AM" },
+            { id: 2, nombre: "Altavista", sector: "II", horario: "Martes y Viernes: 8:00 AM - 12:00 PM" },
+            { id: 3, nombre: "Jardín", sector: "III", horario: "Miércoles y Sábado: 7:00 AM - 11:00 AM" },
+            { id: 4, nombre: "Revolución", sector: "IV", horario: "Lunes y Jueves: 4:00 PM - 8:00 PM" },
+            { id: 5, nombre: "Del Valle", sector: "V", horario: "Martes y Viernes: 2:00 PM - 6:00 PM" },
+            { id: 6, nombre: "Las Américas", sector: "VI", horario: "Miércoles y Sábado: 3:00 PM - 7:00 PM" },
+            { id: 7, nombre: "Libertad", sector: "I", horario: "Lunes y Jueves: 7:00 AM - 11:00 AM" },
+            { id: 8, nombre: "FOVISSSTE", sector: "II", horario: "Martes y Viernes: 9:00 AM - 1:00 PM" },
+            { id: 9, nombre: "Tamarindo", sector: "III", horario: "Miércoles y Sábado: 8:00 AM - 12:00 PM" },
+            { id: 10, nombre: "Villa de Guadalupe", sector: "IV", horario: "Lunes y Jueves: 5:00 PM - 9:00 PM" },
+            { id: 11, nombre: "Lomas de Santuario", sector: "V", horario: "Martes y Viernes: 3:00 PM - 7:00 PM" },
+            { id: 12, nombre: "Villa Florida", sector: "VI", horario: "Miércoles y Sábado: 4:00 PM - 8:00 PM" },
+            { id: 13, nombre: "Felipe Ángeles", sector: "I", horario: "Lunes y Jueves: 6:30 AM - 10:30 AM" },
+            { id: 14, nombre: "Loma Bonita", sector: "II", horario: "Martes y Viernes: 8:30 AM - 12:30 PM" },
+            { id: 15, nombre: "Villa Hermosa", sector: "III", horario: "Miércoles y Sábado: 7:30 AM - 11:30 AM" },
+            { id: 16, nombre: "Benito Juárez", sector: "IV", horario: "Lunes y Jueves: 4:30 PM - 8:30 PM" },
+            { id: 17, nombre: "Vista Hermosa", sector: "V", horario: "Martes y Viernes: 2:30 PM - 6:30 PM" },
+            { id: 18, nombre: "Lomas de Guadalupe", sector: "VI", horario: "Miércoles y Sábado: 3:30 PM - 7:30 PM" },
+            { id: 19, nombre: "Lázaro Cárdenas", sector: "I", horario: "Lunes y Jueves: 7:30 AM - 11:30 AM" },
+            { id: 20, nombre: "Villa del Río", sector: "II", horario: "Martes y Viernes: 9:30 AM - 1:30 PM" },
+            { id: 21, nombre: "Los Pinos", sector: "III", horario: "Miércoles y Sábado: 8:30 AM - 12:30 PM" },
+            { id: 22, nombre: "Villa del Mar", sector: "IV", horario: "Lunes y Jueves: 5:30 PM - 9:30 PM" },
+            { id: 23, nombre: "Villa del Sol", sector: "V", horario: "Martes y Viernes: 3:30 PM - 7:30 PM" },
+            { id: 24, nombre: "Villa de las Flores", sector: "VI", horario: "Miércoles y Sábado: 4:30 PM - 8:30 PM" },
+            { id: 25, nombre: "Villa de las Palmas", sector: "I", horario: "Lunes y Jueves: 6:00 AM - 10:00 AM" },
+            { id: 26, nombre: "Villa San Miguel", sector: "II", horario: "Martes y Viernes: 8:00 AM - 12:00 PM" },
+            { id: 27, nombre: "Villa del Parque", sector: "III", horario: "Miércoles y Sábado: 7:00 AM - 11:00 AM" },
+            { id: 28, nombre: "Villa Jardín", sector: "IV", horario: "Lunes y Jueves: 4:00 PM - 8:00 PM" },
+            { id: 29, nombre: "Villa Fontana", sector: "V", horario: "Martes y Viernes: 2:00 PM - 6:00 PM" },
+            { id: 30, nombre: "Villa Campestre", sector: "VI", horario: "Miércoles y Sábado: 3:00 PM - 7:00 PM" },
+            { id: 31, nombre: "Villa del Carmen", sector: "I", horario: "Lunes y Jueves: 7:00 AM - 11:00 AM" },
+            { id: 32, nombre: "Villa del Lago", sector: "II", horario: "Martes y Viernes: 9:00 AM - 1:00 PM" },
+            { id: 33, nombre: "Villa del Bosque", sector: "III", horario: "Miércoles y Sábado: 8:00 AM - 12:00 PM" },
+            { id: 34, nombre: "Villa del Real", sector: "IV", horario: "Lunes y Jueves: 5:00 PM - 9:00 PM" },
+            { id: 35, nombre: "Villa del Valle", sector: "V", horario: "Martes y Viernes: 3:00 PM - 7:00 PM" },
+            { id: 36, nombre: "Villa del Norte", sector: "VI", horario: "Miércoles y Sábado: 4:00 PM - 8:00 PM" },
+            { id: 37, nombre: "Villa del Sur", sector: "I", horario: "Lunes y Jueves: 6:30 AM - 10:30 AM" },
+            { id: 38, nombre: "Villa del Este", sector: "II", horario: "Martes y Viernes: 8:30 AM - 12:30 PM" },
+            { id: 39, nombre: "Villa del Oeste", sector: "III", horario: "Miércoles y Sábado: 7:30 AM - 11:30 AM" },
+            { id: 40, nombre: "Villa Universidad", sector: "IV", horario: "Lunes y Jueves: 4:30 PM - 8:30 PM" },
+            { id: 41, nombre: "Villa Satélite", sector: "V", horario: "Martes y Viernes: 2:30 PM - 6:30 PM" },
+            { id: 42, nombre: "Villa Las Fuentes", sector: "VI", horario: "Miércoles y Sábado: 3:30 PM - 7:30 PM" },
+            { id: 43, nombre: "Villa San Ángel", sector: "I", horario: "Lunes y Jueves: 7:30 AM - 11:30 AM" },
+            { id: 44, nombre: "Villa San Pedro", sector: "II", horario: "Martes y Viernes: 9:30 AM - 1:30 PM" },
+            { id: 45, nombre: "Villa San José", sector: "III", horario: "Miércoles y Sábado: 8:30 AM - 12:30 PM" },
+            { id: 46, nombre: "Villa San Juan", sector: "IV", horario: "Lunes y Jueves: 5:30 PM - 9:30 PM" },
+            { id: 47, nombre: "Villa San Francisco", sector: "V", horario: "Martes y Viernes: 3:30 PM - 7:30 PM" },
+            { id: 48, nombre: "Villa San Antonio", sector: "VI", horario: "Miércoles y Sábado: 4:30 PM - 8:30 PM" },
+            { id: 49, nombre: "Villa San Lucas", sector: "I", horario: "Lunes y Jueves: 6:00 AM - 10:00 AM" },
+            { id: 50, nombre: "Villa San Mateo", sector: "II", horario: "Martes y Viernes: 8:00 AM - 12:00 PM" },
+            { id: 51, nombre: "Villa San Marcos", sector: "III", horario: "Miércoles y Sábado: 7:00 AM - 11:00 AM" },
+            { id: 52, nombre: "Villa San Rafael", sector: "IV", horario: "Lunes y Jueves: 4:00 PM - 8:00 PM" },
+            { id: 53, nombre: "Villa San Isidro", sector: "V", horario: "Martes y Viernes: 2:00 PM - 6:00 PM" },
+            { id: 54, nombre: "Villa San Lorenzo", sector: "VI", horario: "Miércoles y Sábado: 3:00 PM - 7:00 PM" },
+            { id: 55, nombre: "Villa San Fernando", sector: "I", horario: "Lunes y Jueves: 7:00 AM - 11:00 AM" },
+            { id: 56, nombre: "Villa San Carlos", sector: "II", horario: "Martes y Viernes: 9:00 AM - 1:00 PM" },
+            { id: 57, nombre: "Villa San Felipe", sector: "III", horario: "Miércoles y Sábado: 8:00 AM - 12:00 PM" },
+            { id: 58, nombre: "Villa San Roque", sector: "IV", horario: "Lunes y Jueves: 5:00 PM - 9:00 PM" },
+            { id: 59, nombre: "Villa San Gerardo", sector: "V", horario: "Martes y Viernes: 3:00 PM - 7:00 PM" },
+            { id: 60, nombre: "Villa San Nicolás", sector: "VI", horario: "Miércoles y Sábado: 4:00 PM - 8:00 PM" }
+        ];
+
+        // Elementos del DOM para el menú hamburguesa
+        const hamburgerBtn = document.querySelector('.hamburger-btn');
+        const closeBtn = document.querySelector('.close-btn');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarColoniasList = document.querySelector('.sidebar-colonias-list');
+        const sidebarSearchInput = document.querySelector('.sidebar-search-input');
+        const sidebarSectorFilters = document.querySelectorAll('.sidebar-sector-filter');
+
+        // Mostrar/ocultar sidebar
+        hamburgerBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Cerrar sidebar al hacer clic fuera de él
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Mostrar colonias en la lista del sidebar
+        function mostrarColoniasSidebar(colonias) {
+            sidebarColoniasList.innerHTML = '';
+            
+            colonias.forEach(colonia => {
+                const colElement = document.createElement('div');
+                colElement.className = 'sidebar-colonia-item';
+                colElement.innerHTML = `
+                    <div class="sidebar-colonia-header">
+                        <div class="sidebar-colonia-name">${colonia.nombre}</div>
+                        <span class="sidebar-sector-badge sector-${colonia.sector}">Sector ${colonia.sector}</span>
+                    </div>
+                    <div class="sidebar-colonia-horario">
+                        <span class="sidebar-horario-icon">⏰</span>
+                        ${colonia.horario}
+                    </div>
+                `;
+                sidebarColoniasList.appendChild(colElement);
+            });
+        }
+
+        // Filtrar colonias por búsqueda en el sidebar
+        sidebarSearchInput.addEventListener('input', () => {
+            const searchTerm = sidebarSearchInput.value.toLowerCase();
+            const activeSector = document.querySelector('.sidebar-sector-filter.active').dataset.sector;
+            
+            let filteredColonias = colonias;
+            
+            // Aplicar filtro de búsqueda
+            if (searchTerm) {
+                filteredColonias = filteredColonias.filter(colonia => 
+                    colonia.nombre.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Aplicar filtro de sector
+            if (activeSector !== 'all') {
+                filteredColonias = filteredColonias.filter(colonia => 
+                    colonia.sector === activeSector
+                );
+            }
+            
+            mostrarColoniasSidebar(filteredColonias);
+        });
+
+        // Filtrar colonias por sector en el sidebar
+        sidebarSectorFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Remover clase activa de todos los filtros
+                sidebarSectorFilters.forEach(f => f.classList.remove('active'));
+                // Agregar clase activa al filtro clickeado
+                filter.classList.add('active');
+                
+                const sector = filter.dataset.sector;
+                const searchTerm = sidebarSearchInput.value.toLowerCase();
+                
+                let filteredColonias = colonias;
+                
+                // Aplicar filtro de búsqueda si existe
+                if (searchTerm) {
+                    filteredColonias = filteredColonias.filter(colonia => 
+                        colonia.nombre.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                // Aplicar filtro de sector
+                if (sector !== 'all') {
+                    filteredColonias = filteredColonias.filter(colonia => 
+                        colonia.sector === sector
+                    );
+                }
+                
+                mostrarColoniasSidebar(filteredColonias);
+            });
+        });
+
+        // Mostrar todas las colonias al cargar la página
+        mostrarColoniasSidebar(colonias);
+    </script>
     <script src="App 1.js"></script>
 </body>
 </html>
